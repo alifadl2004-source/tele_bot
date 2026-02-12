@@ -1,5 +1,5 @@
 <?php
-// ai.php - إصدار OpenAI مع cURL مباشر
+// ai.php - إصدار DeepSeek API مع cURL مباشر
 
 require_once __DIR__ . '/config.php';
 
@@ -39,7 +39,7 @@ function get_fallback_reply(array $productInfo): string
 }
 
 /**
- * بناء الـ Prompt الذي سيرسل إلى GPT
+ * بناء الـ Prompt الذي سيرسل إلى DeepSeek
  */
 function build_ai_prompt(string $userMessage, string $productJsonRaw): string
 {
@@ -59,19 +59,19 @@ EOT;
 }
 
 /**
- * الاتصال بـ OpenAI API باستخدام cURL
+ * الاتصال بـ DeepSeek API باستخدام cURL
  */
-function call_openai_api(string $prompt): ?string
+function call_deepseek_api(string $prompt): ?string
 {
     $ch = curl_init();
 
     $headers = [
-        'Authorization: Bearer ' . OPENAI_API_KEY,
+        'Authorization: Bearer ' . DEEPSEEK_API_KEY,
         'Content-Type: application/json',
     ];
 
     $payload = json_encode([
-        'model' => OPENAI_MODEL,
+        'model' => DEEPSEEK_MODEL,
         'messages' => [
             ['role' => 'user', 'content' => $prompt],
         ],
@@ -80,12 +80,12 @@ function call_openai_api(string $prompt): ?string
     ]);
 
     curl_setopt_array($ch, [
-        CURLOPT_URL => 'https://api.openai.com/v1/chat/completions',
+        CURLOPT_URL => 'https://api.deepseek.com/v1/chat/completions',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST => true,
         CURLOPT_HTTPHEADER => $headers,
         CURLOPT_POSTFIELDS => $payload,
-        CURLOPT_TIMEOUT => 30,
+        CURLOPT_TIMEOUT => 60, // زيادة المهلة لضمان الاستجابة
     ]);
 
     $response = curl_exec($ch);
@@ -93,7 +93,7 @@ function call_openai_api(string $prompt): ?string
     curl_close($ch);
 
     if ($response === false || $httpCode !== 200) {
-        error_log("OpenAI Error: HTTP $httpCode - " . substr($response, 0, 200));
+        error_log("DeepSeek API Error: HTTP $httpCode - " . substr($response, 0, 200));
         return null;
     }
 
@@ -111,7 +111,7 @@ function generate_reply_for_user(string $userMessage): string
     $fallback       = get_fallback_reply($productInfo);
 
     $prompt = build_ai_prompt($userMessage, $productJsonRaw);
-    $reply  = call_openai_api($prompt);
+    $reply  = call_deepseek_api($prompt);
 
     return $reply ?: $fallback;
 }
