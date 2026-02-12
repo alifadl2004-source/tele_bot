@@ -58,3 +58,4 @@ telegram_send_message($chatId, $reply);
 // إنهاء الطلب بنجاح
 http_response_code(200);
 echo 'OK';
+
