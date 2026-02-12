@@ -2,10 +2,14 @@
 // bot.php
 // ملف الـ webhook الرئيسي لبوت تيليجرام
 
-require_once __DIR__ . '/config.php';
-require_once __DIR__ . '/ai.php';
-require_once __DIR__ . '/telegram.php';
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/../error_log.txt'); // سجل الأخطاء في الجذر
 
+require_once __DIR__ . '/../config.php';    // ارجع مجلداً للخلف
+require_once __DIR__ . '/../ai.php';        // ارجع مجلداً للخلف
+require_once __DIR__ . '/../telegram.php';  // ارجع مجلداً للخلف
+
+// ... باقي الكود كما هو ...
 // قراءة البيانات الواردة من تيليجرام
 $rawInput = file_get_contents('php://input');
 if (!$rawInput) {
