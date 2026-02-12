@@ -9,7 +9,7 @@ define('TELEGRAM_BOT_TOKEN', '8575333274:AAHaRmOxcpt0QDLFZNqLKWAIPGW64j1iMbI');
 define('HF_API_TOKEN', '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');
 
 // نموذج عربي متخصص (أفضل من gpt2)
-define('HF_MODEL_ID', 'aubmindlab/aragpt2-base');
+define('HF_MODEL_ID', 'akhooli/gpt2-small-arabic');
 
 // رابط API الخاص بالنموذج
 define('HF_API_URL', 'https://api-inference.huggingface.co/models/' . HF_MODEL_ID);
