@@ -4,13 +4,6 @@
 
 require_once __DIR__ . '/config.php';
 
-/**
- * إرسال رسالة نصية إلى مستخدم/شات معيّن
- *
- * @param int|string $chatId
- * @param string     $text
- * @return bool      نجاح أو فشل الطلب
- */
 function telegram_send_message($chatId, string $text): bool
 {
     $url = 'https://api.telegram.org/bot' . TELEGRAM_BOT_TOKEN . '/sendMessage';
@@ -22,7 +15,6 @@ function telegram_send_message($chatId, string $text): bool
     ];
 
     $ch = curl_init();
-
     curl_setopt_array($ch, [
         CURLOPT_URL            => $url,
         CURLOPT_RETURNTRANSFER => true,
