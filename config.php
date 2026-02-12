@@ -13,7 +13,7 @@ define('HF_MODEL_ID', 'akhooli/gpt2-small-arabic');
 
 // رابط API الخاص بالنموذج
 
-define('HF_API_URL', 'https://router.huggingface.co/hf-inference/models/' . HF_MODEL_ID);
+define('HF_API_URL', 'https://router.huggingface.co/models/' . HF_MODEL_ID);
 
 // مسار ملف JSON (نفس مجلد المشروع)
 define('PRODUCT_INFO_PATH', __DIR__ . '/product_info.json');
