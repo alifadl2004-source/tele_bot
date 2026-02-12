@@ -1,18 +1,18 @@
 <?php
-// config.php - نسخة OpenAI (cURL)
+// config.php - نسخة DeepSeek API
 
-// توكن بوت تيليجرام (خاص بك)
+// توكن بوت تيليجرام
 define('TELEGRAM_BOT_TOKEN', '8575333274:AAHaRmOxcpt0QDLFZNqLKWAIPGW64j1iMbI');
 
-// 🟢 مفتاح OpenAI API - ضع المفتاح الذي حصلت عليه هنا
-define('OPENAI_API_KEY', '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'); // غيّره
+// 🟢 مفتاح DeepSeek API (مجاني بالكامل)
+define('DEEPSEEK_API_KEY', 'sk-bacd69d56c114420afa08c70f7ca88c9');
 
-// النموذج المستخدم (gpt-3.5-turbo = أرخص وأسرع، gpt-4 = أدق)
-define('OPENAI_MODEL', 'gpt-3.5-turbo');
+// النموذج المستخدم (deepseek-chat هو الأنسب)
+define('DEEPSEEK_MODEL', 'deepseek-chat');
 
 // مسار ملف JSON (لا تغيره)
 define('PRODUCT_INFO_PATH', __DIR__ . '/product_info.json');
 
-// تفعيل سجل الأخطاء (مفيد للتتبع)
+// تفعيل سجل الأخطاء
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/error_log.txt');
