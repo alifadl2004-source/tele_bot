@@ -3,14 +3,12 @@
 // ملف الـ webhook الرئيسي لبوت تيليجرام
 
 ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/../error_log.txt'); // سجل الأخطاء في الجذر
+ini_set('error_log', __DIR__ . '/../error_log.txt');
 
-require_once __DIR__ . '/../config.php';    // ارجع مجلداً للخلف
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../ai.php';
+require_once __DIR__ . '/../telegram.php';
 
-require_once __DIR__ . '/../ai.php';        // ارجع مجلداً للخلف
-require_once __DIR__ . '/../telegram.php';  // ارجع مجلداً للخلف
-
-// ... باقي الكود كما هو ...
 // قراءة البيانات الواردة من تيليجرام
 $rawInput = file_get_contents('php://input');
 if (!$rawInput) {
@@ -38,9 +36,9 @@ if (isset($update['message']['text'])) {
     $userText = trim($update['message']['text']);
 }
 
-// تحميل معلومات المنتج واستخراج الفال باك (لجميع الحالات)
+// تحميل معلومات المنتج واستخراج الفال باك
 $productInfo = load_product_info_array();
-$fallback = get_fallback_reply($productInfo); // الدالة موجودة في ai.php
+$fallback = get_fallback_reply($productInfo);
 
 // إذا كانت الرسالة فارغة (غير نصية)
 if ($userText === '') {
@@ -49,13 +47,11 @@ if ($userText === '') {
     exit;
 }
 
-// توليد الرد عبر الذكاء الاصطناعي
+// توليد الرد عبر DeepSeek
 $reply = generate_reply_for_user($userText);
 
 // إرسال الرد
 telegram_send_message($chatId, $reply);
 
-// إنهاء الطلب بنجاح
 http_response_code(200);
 echo 'OK';
-
