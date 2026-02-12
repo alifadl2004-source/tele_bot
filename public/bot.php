@@ -6,6 +6,7 @@ ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/../error_log.txt'); // سجل الأخطاء في الجذر
 
 require_once __DIR__ . '/../config.php';    // ارجع مجلداً للخلف
+
 require_once __DIR__ . '/../ai.php';        // ارجع مجلداً للخلف
 require_once __DIR__ . '/../telegram.php';  // ارجع مجلداً للخلف
 
