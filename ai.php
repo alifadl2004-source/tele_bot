@@ -1,5 +1,5 @@
 <?php
-// ai.php - إصدار DeepSeek API مع cURL مباشر
+// ai.php - إصدار OpenRouter (مجاني مع DeepSeek)
 
 require_once __DIR__ . '/config.php';
 
@@ -39,7 +39,7 @@ function get_fallback_reply(array $productInfo): string
 }
 
 /**
- * بناء الـ Prompt الذي سيرسل إلى DeepSeek
+ * بناء الـ Prompt
  */
 function build_ai_prompt(string $userMessage, string $productJsonRaw): string
 {
@@ -59,19 +59,21 @@ EOT;
 }
 
 /**
- * الاتصال بـ DeepSeek API باستخدام cURL
+ * الاتصال بـ OpenRouter API باستخدام cURL
  */
-function call_deepseek_api(string $prompt): ?string
+function call_openrouter_api(string $prompt): ?string
 {
     $ch = curl_init();
 
     $headers = [
-        'Authorization: Bearer ' . DEEPSEEK_API_KEY,
+        'Authorization: Bearer ' . OPENROUTER_API_KEY,
         'Content-Type: application/json',
+        'HTTP-Referer: https://tele-bot-0ir9.onrender.com', // مهم: ضع رابط موقعك
+        'X-Title: Senya AIR-5 Bot' // اسم تطبيقك (اختياري)
     ];
 
     $payload = json_encode([
-        'model' => DEEPSEEK_MODEL,
+        'model' => OPENROUTER_MODEL,
         'messages' => [
             ['role' => 'user', 'content' => $prompt],
         ],
@@ -80,12 +82,12 @@ function call_deepseek_api(string $prompt): ?string
     ]);
 
     curl_setopt_array($ch, [
-        CURLOPT_URL => 'https://api.deepseek.com/v1/chat/completions',
+        CURLOPT_URL => OPENROUTER_API_URL,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_POST => true,
         CURLOPT_HTTPHEADER => $headers,
         CURLOPT_POSTFIELDS => $payload,
-        CURLOPT_TIMEOUT => 60, // زيادة المهلة لضمان الاستجابة
+        CURLOPT_TIMEOUT => 60,
     ]);
 
     $response = curl_exec($ch);
@@ -93,7 +95,7 @@ function call_deepseek_api(string $prompt): ?string
     curl_close($ch);
 
     if ($response === false || $httpCode !== 200) {
-        error_log("DeepSeek API Error: HTTP $httpCode - " . substr($response, 0, 200));
+        error_log("OpenRouter API Error: HTTP $httpCode - " . substr($response, 0, 200));
         return null;
     }
 
@@ -111,7 +113,7 @@ function generate_reply_for_user(string $userMessage): string
     $fallback       = get_fallback_reply($productInfo);
 
     $prompt = build_ai_prompt($userMessage, $productJsonRaw);
-    $reply  = call_deepseek_api($prompt);
+    $reply  = call_openrouter_api($prompt);
 
     return $reply ?: $fallback;
 }
