@@ -9,7 +9,7 @@ define('TELEGRAM_BOT_TOKEN', '8575333274:AAHaRmOxcpt0QDLFZNqLKWAIPGW64j1iMbI');
 define('HF_API_TOKEN', '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');
 
 // نموذج عربي متخصص (أفضل من gpt2)
-define('HF_MODEL_ID', 'akhooli/gpt2-small-arabic');
+define('HF_MODEL_ID', 'akhooli/gpt2');
 
 // رابط API الخاص بالنموذج
 
