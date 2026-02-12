@@ -5,7 +5,7 @@
 define('TELEGRAM_BOT_TOKEN', '8575333274:AAHaRmOxcpt0QDLFZNqLKWAIPGW64j1iMbI');
 
 // 🟢 مفتاح OpenAI API - ضع المفتاح الذي حصلت عليه هنا
-define('OPENAI_API_KEY', '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'); // غيّره
+define('OPENAI_API_KEY', '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'); // غيّره
 
 // النموذج المستخدم (gpt-3.5-turbo = أرخص وأسرع، gpt-4 = أدق)
 define('OPENAI_MODEL', 'gpt-3.5-turbo');
