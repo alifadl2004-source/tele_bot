@@ -6,7 +6,7 @@
 define('TELEGRAM_BOT_TOKEN', '8575333274:AAHaRmOxcpt0QDLFZNqLKWAIPGW64j1iMbI');
 
 // توكن Hugging Face Inference API (يُفضل استبداله بآخر صالح)
-define('HF_API_TOKEN', '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');
+define('HF_API_TOKEN', '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');
 
 // نموذج عربي متخصص (أفضل من gpt2)
 define('HF_MODEL_ID', 'akhooli/gpt2-small-arabic');
